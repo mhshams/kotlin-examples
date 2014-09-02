@@ -20,13 +20,11 @@ class OperatorOverloadingTest {
 
         //when
         val fooBar = foo.plus(bar)
-
         //then
         assertEquals("FooBar", fooBar.value)
 
         //when
         val barFoo = bar + foo
-
         //then
         assertEquals("BarFoo", barFoo.value)
     }
@@ -49,14 +47,14 @@ class OperatorOverloadingTest {
         assertEquals('o', foo[2])
     }
 
-    test fun `compare operator`() {
+    test fun `comparison operator`() {
         //given
         val foo = Foo("Foo")
         val bar = Foo("Bar")
 
         //expect
         assertTrue(foo.compareTo(bar) > 0)
-
+        //expect
         assertTrue(foo > bar)
         assertTrue(bar < foo)
         assertFalse(bar == foo)
@@ -68,7 +66,7 @@ class OperatorOverloadingTest {
 
         //expect
         assertEquals("ELL", foo.get(1, 4))
-
+        //expect
         assertEquals("LO", foo[3, 5])
     }
 
@@ -78,7 +76,7 @@ class OperatorOverloadingTest {
 
         //expect
         assertEquals(5, foo.invoke(2, 3))
-
+        //expect
         assertEquals(7, foo(4, 3))
     }
 
@@ -88,10 +86,12 @@ class OperatorOverloadingTest {
 
         //when
         map.put("key 1", "yes")
-        map["key 2"] = "no"
-
         //then
         assertEquals("yes", map["key 1"])
+
+        //when
+        map["key 2"] = "no"
+        //then
         assertEquals("no", map["key 2"])
     }
 }
@@ -122,7 +122,7 @@ class Foo(val value: String) : Comparable<Foo> {
     fun get(i: Int, j: Int): String = this.value.substring(i, j)
 
     /**
-     * by convention foo(i, j)
+     * by convention 'object(i, j)'
      */
     fun invoke(i: Int, j: Int): Int = i + j
 }
