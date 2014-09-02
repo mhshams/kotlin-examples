@@ -18,10 +18,10 @@ fun main(args: Array<String>) {
 class HelloWorldTest {
 
     test fun `the old famous main method`() {
-        //just a dummy call.
+        //just a dummy call to begin with hello world.
         main(array(""))
 
-        assertTrue(true, "it was just a simple call to the main method")
+        assertTrue(true, "it was simply a call to the main method")
     }
 
     test fun `main method with one argument`() {
@@ -46,7 +46,7 @@ class HelloWorldTest {
     test fun `main method with multiple arguments`() {
 
         /**
-         * Let's greet all of them.
+         * Let's greet all of names in the array.
          */
         fun main(args: Array<String>): List<String> = args map { "Hello, $it!" }
 
