@@ -20,7 +20,7 @@ class InternMethodTest {
         assertEquals("Hello, Bar!", "Bar".hi())
     }
 
-    test fun `functional programming`() {
+    test fun `a filtered hello`() {
         val names = array("Hi", "Food", "Foo", "Bard", "Go");
         val filteredNames = filteredHello(names)
 
@@ -34,9 +34,11 @@ class InternMethodTest {
         val random = SecureRandom()
 
         (0..5).forEach {
-            val t1 = timer { generate(n, { BigInteger(130, random).toString(32) }) }
+            val time = timer {
+                generate(n, { BigInteger(130, random).toString(32) })
+            }
 
-            assertTrue(t1 > 0)
+            assertTrue(time > 0)
         }
     }
 }
@@ -59,7 +61,7 @@ fun filteredHello(names: Array<String>): List<String> =
 fun generate(n: Int, generator: () -> String): List<String> = (1..n).map { generator() }
 
 /**
- * run an action and track the time.
+ * run an action and track the execution time.
  */
 fun timer(action: () -> Unit): Long {
 

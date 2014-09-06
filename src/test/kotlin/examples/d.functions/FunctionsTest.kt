@@ -46,7 +46,7 @@ class FunctionsTest {
         assertTrue("madam" in results)
     }
 
-    ignore("is failing - maybe a bug")
+    ignore("compiler error - maybe a bug")
     test fun `singleton array`() {
 
         /**
@@ -89,10 +89,10 @@ class FunctionsTest {
         /**
          * Converts the given parameters to a list.
          */
-        fun convert<T>(vararg ts: T): List<T> {
+        fun convert<T>(vararg params: T): List<T> {
             val result = ArrayList<T>()
 
-            ts.forEach { result.add(it) }
+            params forEach { result.add(it) }
 
             return result
         }
@@ -111,7 +111,7 @@ class FunctionsTest {
     test fun `functions with default args`() {
 
         /**
-         * a function with default value for its parameters.
+         * a function with default value for its args.
          */
         fun substring(s: String, from: Int = 0, too: Int = -1): String {
             val f = if (from < 0) 0 else from
@@ -145,11 +145,11 @@ class FunctionsTest {
     }
 
     test fun `infix call`() {
-        assertEquals(16, 3 plus 5 times 2)  // (3 + 5) * 2
-        assertEquals(13, 3 + 5 * 2)         // 3 + (5 * 2)
+        assertEquals((3 + 5) * 2, 3 plus 5 times 2)
+        assertEquals(3 + 5 * 2, 5 times 2 plus 3)
     }
 
-    test fun `chaining`() {
+    test fun `chaining functions`() {
         //given
         val strings = array("ok", "Kotlin", "ok i got it", "then wahtsfs")
 

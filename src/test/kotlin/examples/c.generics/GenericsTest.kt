@@ -11,17 +11,20 @@ import kotlin.test.assertTrue
  */
 class GenericsTest {
     test fun `a simple box class`() {
-        val a: Box<Int> = Box(3)
-        val b = Box(9)
 
+        val a: Box<Int> = Box(3)
         assertEquals(3, a.value)
-        assertEquals(9, b.value)
+
+        val b = Box("ok")
+        assertEquals("ok", b.value)
     }
 
     test fun `generic sources or providers (out)`() {
-        val a = Provider("ok")
-        val b: Provider<Any> = a
 
+        val a: Provider<String> = Provider("ok")
+        assertEquals("ok", a.next())
+
+        val b: Provider<Any> = a
         assertEquals("ok", b.next())
     }
 
@@ -38,27 +41,61 @@ class GenericsTest {
     }
 
     test fun `a generic copy function`() {
-        val from = array(1, 2, 3)
-        val to = array<Any>("", "", "")
+        /**
+         * copies the first array to the second one
+         */
+        fun copy(from: Array<out Any>, to: Array<in Any>) {
+            for (i in from.indices) {
+                to[i] = from[i]
+            }
+        }
 
+        //given
+        val from = array(1, 2, 3)
+        val to = array<Any>("a", "b", 0)
+
+        //when
         copy(from, to)
 
-        assertEquals(from[0], to[0])
-        assertEquals(from[1], to[1])
-        assertEquals(from[2], to[2])
+        //then
+        for (i in from.indices) {
+            assertEquals(from[i], to[i])
+        }
     }
 
     test fun `generic functions`() {
+        /**
+         * generates a single list of given generic type
+         */
+        fun singletonList<T>(item: T): List<T> {
+            return listOf(item)
+        }
+
         val x = singletonList('c')
+        val y = singletonList(7)
 
         assertTrue(x is List<Char>)
+        assertTrue(y is List<Int>)
+
         assertEquals(1, x.size)
+        assertEquals(1, y.size)
+
         assertEquals('c', x[0])
+        assertEquals(7, y[0])
+
+
     }
 
     test fun `extension generics`() {
-        assertEquals("java.lang.Integer", 1.basicToString())
-        assertEquals("java.lang.String", "ok".basicToString())
+        /**
+         * a generic extension function.
+         */
+        fun <T> T.basicToString(): String {
+            return "My String Value: ${this.javaClass.getName()}"
+        }
+
+        assertEquals("My String Value: java.lang.Integer", 1.basicToString())
+        assertEquals("My String Value: java.lang.String", "ok".basicToString())
     }
 }
 
@@ -86,28 +123,6 @@ abstract class Consumer<in T> {
  */
 class NumberConsumer : Consumer<Number>() {
     override fun consume(other: Number) = other.toInt()
-}
-
-/**
- * copies the first array to the second one
- */
-fun copy(from : Array<out Any>, to : Array<in Any>) {
-    for (i in from.indices)
-        to[i] = from[i]
-}
-
-/**
- * generates a single list of given generic type
- */
-fun singletonList<T>(item : T) : List<T> {
-    return listOf(item)
-}
-
-/**
- * a generic extension function.
- */
-fun <T> T.basicToString() : String {
-    return this.javaClass.getName()
 }
 
 

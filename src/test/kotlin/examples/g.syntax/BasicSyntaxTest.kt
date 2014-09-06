@@ -18,6 +18,10 @@ class BasicSyntaxTest {
 
         assertEquals(5, max(2, 5))
         assertEquals(3, max(3, 3))
+
+        //or
+        val result = if (4 < 5) true else false
+        assertTrue(result)
     }
 
     test fun `when is used for pattern matching`() {
@@ -40,7 +44,7 @@ class BasicSyntaxTest {
         assertEquals("Unknown", cases("OK"))
     }
 
-    test fun `range is new type in kotlin`() {
+    test fun `range is a type in kotlin`() {
         val x = 3
         if (x in 1..5)
             assertTrue(true)

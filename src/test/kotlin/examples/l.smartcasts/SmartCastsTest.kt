@@ -42,27 +42,10 @@ class SmartCast {
 
     test fun `unsafe cast`() {
         val x: Any = "ok"
+
+        //we are sure x is String
         val y = x as String
 
         assertEquals(x, y)
-    }
-
-    test fun `type inference`() {
-
-        fun castMe(k: String?, v: String): String {
-            val m: MutableMap<String, String> = hashMapOf("one" to "1 value", "two" to "2 value")
-
-            if (k != null) {
-                m[k] = v
-            }
-
-            return if (k != null) m[k]!! else "NULL"
-        }
-
-        val k: String? = "ok"
-
-        assertEquals("okk", castMe(k, "okk"))
-
-        assertEquals("NULL", castMe(null, "okk"))
     }
 }
