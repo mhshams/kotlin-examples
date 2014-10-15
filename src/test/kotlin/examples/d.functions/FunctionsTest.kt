@@ -46,26 +46,6 @@ class FunctionsTest {
         assertTrue("madam" in results)
     }
 
-    ignore("compiler error - maybe a bug")
-    test fun `singleton array`() {
-
-        /**
-         * A generic function to generate a singleton array
-         */
-        fun singletonArray<T>(item: T): Array<T> {
-            //return array(item)
-            throw RuntimeException("a bug?")
-        }
-
-        //when
-        val a = singletonArray("OK")
-
-        //then
-        assertTrue(a is Array<String>)
-        assertTrue(a.size == 1)
-        assertEquals("OK", a[0])
-    }
-
     test fun `singleton list`() {
 
         /**

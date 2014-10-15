@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>0.8.11</kotlin.version>
+        <kotlin.version>0.9.66</kotlin.version>
     </properties>
 
     <dependencies>
